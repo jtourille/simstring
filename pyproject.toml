@@ -4,6 +4,9 @@ version = "1.0.0"
 description = "A Python implementation of the SimString, a simple and efficient algorithm for approximate string matching."
 authors = ["Julien Tourille <julien.tourille@gmail.com>"]
 license = "MIT"
+packages = [
+    { include = "simstring" }
+]
 
 [tool.poetry.dependencies]
 python = "^3.7"
