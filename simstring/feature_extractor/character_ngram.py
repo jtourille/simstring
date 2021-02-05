@@ -1,5 +1,6 @@
-from .base import BaseFeatureExtractor
 from collections import Counter
+
+from .base import BaseFeatureExtractor
 
 SENTINAL_CHAR = "\xa0"  # non breaking space
 
