@@ -28,12 +28,13 @@ setup(
     ],
     package_dir={"": "."},
     package_data={},
-    install_requires=[],
+    install_requires=["pymongo==3.*,>=3.11.3"],
     extras_require={
         "dev": [
             "black==20.*,>=20.8.0.b1",
             "dephell==0.*,>=0.8.3",
             "flake8==3.*,>=3.8.4",
+            "jupyterlab==3.*,>=3.0.7",
             "pre-commit==2.*,>=2.9.3",
         ]
     },
