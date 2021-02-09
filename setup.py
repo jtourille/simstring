@@ -25,7 +25,6 @@ setup(
         "simstring.database",
         "simstring.feature_extractor",
         "simstring.measure",
-        "simstring.memoize",
     ],
     package_dir={"": "."},
     package_data={},
