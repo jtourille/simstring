@@ -69,7 +69,8 @@ class RedisDatabase(BaseDatabase):
         )
 
     def clear(self):
-        self.r.flushdb()
+        for key in self.r.scan_iter("{}:*".format(self.redis_prefix)):
+            self.r.delete(key)
 
     def add_bulk(self, simstring_file: str = None, n_jobs: int = 1):
 
