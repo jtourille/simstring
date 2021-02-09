@@ -4,7 +4,6 @@ from simstring.feature_extractor.base import BaseFeatureExtractor
 class BaseDatabase:
     def __init__(self, feature_extractor: BaseFeatureExtractor = None):
         self.feature_extractor = feature_extractor
-        raise NotImplementedError
 
     def add(self, string: str = None):
         raise NotImplementedError
