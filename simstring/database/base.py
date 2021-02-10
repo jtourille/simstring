@@ -10,6 +10,9 @@ class BaseDatabase:
     def add(self, string: str = None):
         raise NotImplementedError
 
+    def clear(self):
+        raise NotImplementedError
+
     def add_bulk(self, simstring_file: str = None):
         raise NotImplementedError
 

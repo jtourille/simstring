@@ -39,6 +39,11 @@ class DictDatabase(BaseDatabase):
                         feat
                     ].add(term)
 
+    def clear(self):
+        self.feature_set_size_and_feature_to_string_map = defaultdict(
+            lambda: defaultdict(set)
+        )
+
     def lookup_strings_by_feature_set_size_and_feature(
         self, size: int = None, feature: str = None
     ):
