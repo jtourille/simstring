@@ -1,6 +1,7 @@
 import math
 import re
 import unicodedata
+from typing import List
 
 import redis
 from joblib import Parallel, delayed
@@ -119,6 +120,17 @@ class RedisDatabase(BaseDatabase):
         key = "{}:#S{}#F{}".format(self.redis_prefix, size, feature)
 
         return self.r.lrange(key, 0, -1)
+
+    def lookup_strings_by_feature_set_size_and_feature_bulk(
+        self, size: int = None, features: List[str] = None
+    ):
+
+        with self.r.pipeline() as pipe:
+            for feat in features:
+                key = "{}:#S{}#F{}".format(self.redis_prefix, size, feat)
+                pipe.lrange(key, 0, -1)
+
+            return pipe.execute()
 
     def min_feature_size(self):
 

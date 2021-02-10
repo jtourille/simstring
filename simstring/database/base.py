@@ -1,3 +1,5 @@
+from typing import List
+
 from simstring.feature_extractor.base import BaseFeatureExtractor
 
 
@@ -8,6 +10,9 @@ class BaseDatabase:
     def add(self, string: str = None):
         raise NotImplementedError
 
+    def add_bulk(self, simstring_file: str = None):
+        raise NotImplementedError
+
     def min_feature_size(self):
         raise NotImplementedError
 
@@ -16,5 +21,10 @@ class BaseDatabase:
 
     def lookup_strings_by_feature_set_size_and_feature(
         self, size: int = None, feature: str = None
+    ):
+        raise NotImplementedError
+
+    def lookup_strings_by_feature_set_size_and_feature_bulk(
+        self, size: int, features: List[str]
     ):
         raise NotImplementedError
