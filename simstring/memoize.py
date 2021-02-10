@@ -1,4 +1,3 @@
-import logging
 from collections import defaultdict
 from typing import List
 
@@ -30,7 +29,6 @@ class FeatureSizeMemoizer:
         features: List[str] = None,
     ):
 
-        logging.info("bulk")
         for feat, result in zip(
             features,
             db.lookup_strings_by_feature_set_size_and_feature_bulk(
