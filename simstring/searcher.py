@@ -1,11 +1,14 @@
 from collections import defaultdict
 
+from simstring.memoize import FeatureSizeMemoizer
+
 
 class Searcher:
     def __init__(self, db, measure):
         self.db = db
         self.measure = measure
         self.feature_extractor = db.feature_extractor
+        self.memoizer = FeatureSizeMemoizer()
 
     def search(self, query_string, alpha):
         features = self.feature_extractor.features(query_string)
@@ -47,12 +50,13 @@ class Searcher:
         )
 
     def _overlap_join(self, features, tau, candidate_feature_size):
+
         query_feature_size = len(features)
         sorted_features = sorted(
             features,
             key=lambda x: len(
-                self.db.lookup_strings_by_feature_set_size_and_feature(
-                    size=candidate_feature_size, feature=x
+                self.memoizer.get(
+                    size=candidate_feature_size, feature=x, db=self.db
                 )
             ),
         )
@@ -61,19 +65,16 @@ class Searcher:
         results = []
 
         for feature in sorted_features[0 : query_feature_size - tau + 1]:
-            for s in self.db.lookup_strings_by_feature_set_size_and_feature(
-                size=candidate_feature_size, feature=feature
+            for s in self.memoizer.get(
+                size=candidate_feature_size, feature=feature, db=self.db
             ):
                 candidate_string_to_matched_count[s] += 1
 
         for s in candidate_string_to_matched_count.keys():
             for i in range(query_feature_size - tau + 1, query_feature_size):
                 feature = sorted_features[i]
-                if (
-                    s
-                    in self.db.lookup_strings_by_feature_set_size_and_feature(
-                        size=candidate_feature_size, feature=feature
-                    )
+                if s in self.memoizer.get(
+                    size=candidate_feature_size, feature=feature, db=self.db
                 ):
                     candidate_string_to_matched_count[s] += 1
                 if candidate_string_to_matched_count[s] >= tau:
@@ -86,5 +87,7 @@ class Searcher:
                     < tau
                 ):
                     break
+
+        self.memoizer.clear()
 
         return results
