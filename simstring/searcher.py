@@ -51,6 +51,10 @@ class Searcher:
 
     def _overlap_join(self, features, tau, candidate_feature_size):
 
+        self.memoizer.load_bulk(
+            db=self.db, size=candidate_feature_size, features=features
+        )
+
         query_feature_size = len(features)
         sorted_features = sorted(
             features,
