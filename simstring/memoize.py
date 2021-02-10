@@ -1,4 +1,6 @@
+import logging
 from collections import defaultdict
+from typing import List
 
 from simstring.database.base import BaseDatabase
 
@@ -20,6 +22,22 @@ class FeatureSizeMemoizer:
             )
 
         return self.memory[size][feature]
+
+    def load_bulk(
+        self,
+        db: BaseDatabase = None,
+        size: int = None,
+        features: List[str] = None,
+    ):
+
+        logging.info("bulk")
+        for feat, result in zip(
+            features,
+            db.lookup_strings_by_feature_set_size_and_feature_bulk(
+                size=size, features=features
+            ),
+        ):
+            self.memory[size][feat] = result
 
     def clear(self):
 
