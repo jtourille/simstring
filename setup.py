@@ -28,11 +28,7 @@ setup(
     ],
     package_dir={"": "."},
     package_data={},
-    install_requires=[
-        "joblib==1.*,>=1.0.0",
-        "pymongo==3.*,>=3.11.3",
-        "redis==3.*,>=3.5.3",
-    ],
+    install_requires=["joblib==1.*,>=1.0.0", "redis==3.*,>=3.5.3"],
     extras_require={
         "dev": [
             "black==20.*,>=20.8.0.b1",
