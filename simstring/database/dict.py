@@ -1,5 +1,4 @@
 import re
-import unicodedata
 from collections import defaultdict
 from typing import List
 
@@ -31,7 +30,7 @@ class DictDatabase(BaseDatabase):
                 if re.match("^$", line):
                     continue
 
-                term = unicodedata.normalize("NFKD", line.rstrip("\n"))
+                term = line.rstrip("\n")
                 features = self.feature_extractor.features(term)
                 size = len(features)
                 for feat in features:

@@ -1,6 +1,5 @@
 import math
 import re
-import unicodedata
 from typing import List
 
 import redis
@@ -31,7 +30,7 @@ def _add_terms_to_redis(
                 if re.match("^$", line):
                     continue
 
-                term = unicodedata.normalize("NFKD", line.rstrip("\n"))
+                term = line.rstrip("\n")
                 features = feature_extractor.features(term)
                 size = len(features)
 
