@@ -18,9 +18,7 @@ class CharacterNgramFeatureExtractor(BaseFeatureExtractor):
                 + SENTINAL_CHAR * (self.n - 1)
             )
 
-        features = self._each_cons(
-            SENTINAL_CHAR + string + SENTINAL_CHAR, self.n
-        )
+        features = self._each_cons(string, self.n)
         feature_count = Counter(features)
 
         final_features = set()
